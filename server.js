@@ -25,6 +25,6 @@ io.on('connection', function(socket){
   })
 });
 
-http.listen(config.port, function(){
+http.listen(config.port, config.ip, function(){
   console.log('Server listening');
 });
