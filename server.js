@@ -13,13 +13,16 @@ app.get('/', function(req, res){
 });
 
 io.on('connection', function(socket){
+    console.log('client connected');
     socket.emit('image', {image: true, buffer: image});
     
   socket.on('image', function(data){
-      console.log(data);
+      console.log('broadcasting image');
       image = data.buffer;
-      console.log(image);
-  })
+      
+      socket.broadcast.emit('image', {image: true, buffer: image});
+  });
+  
   socket.on('pi_error', function(data){
       console.error("Pi Error: ", data);   
   })
