@@ -15,17 +15,22 @@ app.get('/', function(req, res){
 io.on('connection', function(socket){
     console.log('client connected');
     socket.emit('image', {image: true, buffer: image});
+        
+    socket.on('image', function(data){
+        console.log('broadcasting image');
+        image = data.buffer;
+        
+        socket.broadcast.emit('image', {image: true, buffer: image});
+    });
     
-  socket.on('image', function(data){
-      console.log('broadcasting image');
-      image = data.buffer;
-      
-      socket.broadcast.emit('image', {image: true, buffer: image});
-  });
-  
-  socket.on('pi_error', function(data){
-      console.error("Pi Error: ", data);   
-  })
+    socket.on('pi_error', function(data){
+        console.error("Pi Error ");   
+    });
+    
+    socket.on('send_update_signal', function(){
+        console.log('sending update signal');
+        io.emit('pi_update');
+    })
 });
 
 console.log(config.port);

@@ -3,6 +3,7 @@
     </head>
     <body>
         <img src="" id="socketimg">
+        <button onclick="startUpdate()">Force remote update</button>
         <script src="/socket.io/socket.io.js"></script>
         <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
         <script>
@@ -10,6 +11,10 @@
         socket.on('image', function(data){
             $('#socketimg').attr('src', data.buffer);
         })
+        
+        var startUpdate = function () {
+            socket.emit('send_update_signal');
+        }
         </script>
     </body>
 </html>
