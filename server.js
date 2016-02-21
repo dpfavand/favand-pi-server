@@ -18,9 +18,10 @@ io.on('connection', function(socket){
         
     socket.on('image', function(data){
         console.log('broadcasting image');
-        image = data.buffer;
         
-        socket.broadcast.emit('image', {image: true, buffer: image});
+        // if we wanted to, we could do some manipulation here...
+        
+        socket.broadcast.emit('image', data);
     });
     
     socket.on('pi_error', function(data){
