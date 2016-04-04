@@ -3,6 +3,7 @@
     </head>
     <body>
         <img src="" id="socketimg">
+        <div id="sockettemp"></div>
         <button onclick="startUpdate()">Force remote update</button>
         <script src="/socket.io/socket.io.js"></script>
         <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
@@ -10,6 +11,9 @@
         var socket = io('http://piserver-favand.rhcloud.com:8000');
         socket.on('image', function(data){
             $('#socketimg').attr('src', data.buffer);
+        })
+        socket.on('weather', function(data){
+            $('#sockettemp').text(data.temp);
         })
         
         var startUpdate = function () {
