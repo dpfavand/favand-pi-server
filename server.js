@@ -24,8 +24,16 @@ io.on('connection', function(socket){
         socket.broadcast.emit('image', data);
     });
     
+    socket.on('weather', function(data){
+        console.log('broadcasting weather', data);
+        
+        // if we wanted to, we could do some manipulation here...
+        
+        socket.broadcast.emit('weather', data);
+    });
+    
     socket.on('pi_error', function(data){
-        console.error("Pi Error ");   
+        console.error("Pi Error ", data);   
     });
     
     socket.on('send_update_signal', function(){
